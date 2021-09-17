@@ -1,0 +1,66 @@
+#include <iostream>
+#include <array>
+#include <cmath>
+#include <algorithm>
+#include <cstdlib>
+
+/*----------------------------------------------------------------------------------------------------------------------*/
+//Pre-declaration:
+template <typename DataType>
+DataType DaysBetween (DataType year1, DataType month1, DataType day1, DataType year2, DataType month2, DataType day2);
+
+template <typename DataType>
+DataType LeapYear (DataType year);
+
+//Pre-computation: Modular Programming
+const static int daysInMonth[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+const static int leapDaysInMonth[] = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+const static int daysInYear[] = {0, 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};
+const static int leayDaysInYear[] = {0, 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};
+
+/*----------------------------------------------------------------------------------------------------------------------*/
+//Considers the case of a Leap Year:
+template <typename DataType> 
+DataType LeapYear (DataType year)
+{
+    if (year % 400 == 0)
+    {
+        return true;
+    } 
+    else if (year % 100 == 0)
+    {
+        return false;
+    }
+    else if (year % 4 == 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+/*----------------------------------------------------------------------------------------------------------------------*/
+//Simple function to calculate both dates by subtracting them from epoch time:
+template <typename DataType>
+DataType DaysBetween (DataType year1, DataType month1, DataType day1, DataType year2, DataType month2, DataType day2) 
+{
+    int date1 = 0, date2 = 0, diffBetweenBoth = 0;
+    
+    date1 = (year1 - 1900) * 365 + daysInYear[month1] + day1;
+    date2 = (year2 - 1900) * 365 + daysInYear[month2] + day2;
+    diffBetweenBoth = abs(date1 - date2);
+    
+    return diffBetweenBoth;
+}
+/*----------------------------------------------------------------------------------------------------------------------*/
+
+//Driver:
+//int main() {}
+
+/*
+Amortized Analysis:
+- Time Complexity: Ω(1)
+- Space Complexity: O(n), Ω(1)
+*/
